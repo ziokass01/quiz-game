@@ -1,1 +1,12 @@
-<!DOCTYPE html>\n<html>\n<head>\n    <title>Surplus Value Economics Quiz Game</title>\n    <style>\n        body { font-family: Arial, sans-serif; }\n        h1 { text-align: center; }\n        .question { margin: 20px; }\n        #timer { color: red; font-weight: bold; }\n    </style>\n</head>\n<body>\n    <header>\n        <h1>Surplus Value Economics Quiz Game</h1>\n    </header>\n    <main>\n        <section id="player-selection">\n            <h2>Select Players</h2>\n            <!-- Random player selection logic -->\n            <div id="players">Player List: <span id="player-list"></span></div>\n        </section>\n        <section id="quiz">\n            <h2>Part 1: Basic Concepts</h2>\n            <div class="question">\n                <p>Question 1: What is surplus value?</p>\n                <button onclick="startTimer(1)">Start</button>\n                <div id="timer"></div>\n                <p>Answer: [Answer reveal logic]</p>\n            </div>\n            <div class="question">\n                <p>Question 2: Who coined the term surplus value?</p>\n                <button onclick="startTimer(2)">Start</button>\n                <div id="timer"></div>\n                <p>Answer: [Answer reveal logic]</p>\n            </div>\n            <!-- Add more questions here -->\n            <h2>Part 2: Advanced Topics</h2>\n            <!-- Add questions for part 2 here -->\n            <h2>Part 3: Application</h2>\n            <!-- Add questions for part 3 here -->\n        </section>\n        <section id="tracking">\n            <h2>Player Tracking</h2>\n            <div>Players with points: <span id="points-tracking"></span></div>\n        </section>\n    </main>\n    <script>\n        function startTimer(questionNumber) {\n            let timeLeft = 10;\n            const timer = document.getElementById('timer');\n            const countdown = setInterval(() => {\n                if (timeLeft <= 0) {\n                    clearInterval(countdown);\n                    // Reveal answer logic here\n                } else {\n                    timer.innerHTML = 'Time left: ' + timeLeft\n                    timeLeft--;\n                }\n            }, 1000);\n        }\n        // Function for random player selection and tracking logic\n    </script>\n</body>\n</html>
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Quiz Game</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

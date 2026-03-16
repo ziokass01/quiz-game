@@ -1,35 +1,72 @@
-# Quiz Game
+# Mini Quiz Game (React + Vite)
 
-## Overview
-Quiz Game is a fun and interactive game that tests your knowledge across various categories. Players can challenge themselves or compete against friends.
+Mini game trắc nghiệm 15 câu hỏi với cơ chế mở hộp quà ngẫu nhiên, chạy hoàn toàn frontend, phù hợp deploy ngay lên Vercel.
 
-## Features
-- Multiple quiz categories (General Knowledge, Science, History, etc.)
-- Timed quizzes for an added challenge
-- Score tracking to monitor performance
-- User-friendly interface
+## Tính năng chính
 
-## How to Use
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ziokass01/quiz-game.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd quiz-game
-   ```
-3. Install the necessary dependencies (if any):
-   ```bash
-   npm install
-   ```
-4. Start the game:
-   ```bash
-   npm start
-   ```
+- Màn hình mở đầu với nút **"Bắt đầu trò chơi"**
+- 15 câu hỏi trắc nghiệm (mỗi câu 4 đáp án A, B, C, D)
+- Chỉ 1 đáp án đúng cho mỗi câu
+- Trả lời đúng sẽ mở màn chọn **4 hộp quà**
+- Kho phần thưởng toàn game:
+  - 1 phần thưởng `20.000đ`
+  - 3 phần thưởng `2.000đ`
+  - Các phần còn lại `1.000đ`
+- Quà đã nhận sẽ bị loại khỏi kho quà (không lặp lại đúng phần quà đã nhận)
+- Hiệu ứng âm thanh khi:
+  - trả lời đúng
+  - trả lời sai/hết giờ
+  - mở quà
+- Đồng hồ đếm ngược cho mỗi câu hỏi
+- Màn hình tổng kết cuối game:
+  - số câu đúng
+  - tổng quà đã nhận
+- Nút chơi lại
+- UI sinh động, hiện đại, dễ nhìn, dễ trình chiếu
+- Dữ liệu câu hỏi tách riêng trong mảng để dễ chỉnh sửa
 
-## Instructions
-- Browse through the available categories and select your preferred one.
-- Answer the questions to the best of your knowledge.
-- After the quiz, review your score and see where you can improve!
+## Cấu trúc project
 
-Enjoy the game!
+```bash
+quiz-game/
+├─ index.html
+├─ package.json
+├─ vite.config.js
+├─ README.md
+└─ src/
+   ├─ App.jsx
+   ├─ main.jsx
+   ├─ styles.css
+   └─ data/
+      └─ questions.js
+```
+
+## Chạy local
+
+```bash
+npm install
+npm run dev
+```
+
+## Build production
+
+```bash
+npm run build
+```
+
+## Deploy Vercel
+
+1. Push code lên GitHub.
+2. Import repository vào Vercel.
+3. Vercel tự nhận diện Vite:
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+4. Deploy.
+
+Không cần backend vì toàn bộ dữ liệu câu hỏi/phần thưởng xử lý ở frontend.
+
+## Tuỳ chỉnh nhanh
+
+- Sửa câu hỏi tại: `src/data/questions.js`
+- Sửa thời gian mỗi câu tại hằng số `QUESTION_TIME` trong `src/data/questions.js`
+- Sửa giao diện tại: `src/styles.css`

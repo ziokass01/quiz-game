@@ -1,0 +1,145 @@
+:root {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  color: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #6a00ff, #2d0b59 45%, #130021);
+  padding: 24px;
+}
+
+.game-card {
+  width: min(900px, 100%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 28px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+h2 {
+  margin-top: 12px;
+  font-size: 1.35rem;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  color: #ffe56f;
+}
+
+.timer.danger {
+  color: #ff7f7f;
+  animation: pulse 0.8s infinite;
+}
+
+.grid-options,
+.gift-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.option-btn,
+.gift-box,
+.primary-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.2s ease;
+}
+
+.option-btn {
+  background: linear-gradient(135deg, #14c8ff, #18a1ff);
+  color: #002034;
+}
+
+.gift-box {
+  background: linear-gradient(135deg, #ffde59, #ffb347);
+  color: #522100;
+}
+
+.primary-btn {
+  margin-top: 14px;
+  min-width: 220px;
+  background: linear-gradient(135deg, #ff6ad5, #ff3c89);
+  color: #fff;
+}
+
+.option-btn:hover,
+.gift-box:hover,
+.primary-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.05);
+}
+
+.feedback {
+  margin-top: 16px;
+  font-weight: 700;
+  color: #b8ffb6;
+}
+
+.hint {
+  margin: 14px 0 0;
+  font-style: italic;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 680px) {
+  .game-card {
+    padding: 18px;
+  }
+
+  .grid-options,
+  .gift-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-row {
+    flex-wrap: wrap;
+  }
+}
