@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Quiz Chương 3</title>
+    <meta name="description" content="Mini game 15 câu hỏi bám sát Chương 3 – Kinh tế chính trị Mác – Lênin" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="stage-bg">
+      <div class="curtain curtain-left"></div>
+      <div class="curtain curtain-right"></div>
+      <div class="spotlight beam beam-1"></div>
+      <div class="spotlight beam beam-2"></div>
+      <div class="spotlight beam beam-3"></div>
+      <div class="audience-glow"></div>
+      <div class="led-ribbon led-top"></div>
+      <div class="led-ribbon led-bottom"></div>
+      <div class="floating-star s1">✦</div>
+      <div class="floating-star s2">✦</div>
+      <div class="floating-star s3">✦</div>
+    </div>
+
+    <main class="app-shell">
+      <section class="panel hero-panel" id="startScreen">
+        <div class="hero-led">🎤 MINI GAME SHOW</div>
+        <div class="mascot mascot-start">🎙️</div>
+        <h1>🎓 Mini Quiz Chương 3 – Kinh tế chính trị Mác – Lênin</h1>
+        <p class="hero-text">
+          Có 15 câu hỏi trắc nghiệm. Mỗi câu đúng sẽ mở <strong>vòng quay may mắn</strong> ngay giữa màn hình.
+          Kho quà có <strong>4 phần 20.000đ</strong>, <strong>3 phần 2.000đ</strong> và <strong>8 phần 1.000đ</strong>.
+          Phần thưởng đã trúng sẽ bị loại khỏi vòng quay.
+        </p>
+
+        <div class="hero-grid">
+          <div class="hero-card">📝 15 câu hỏi</div>
+          <div class="hero-card">🎡 Quay thưởng giữa màn hình</div>
+          <div class="hero-card">📚 Có giải thích + ví dụ</div>
+        </div>
+
+        <div class="time-setting">
+          <label for="timeInput">⏳ Thời gian mỗi câu</label>
+          <div class="time-row">
+            <input id="timeInput" type="range" min="8" max="60" step="1" value="20" />
+            <strong><span id="timeValue">20</span>s</strong>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <button id="startBtn" class="btn btn-primary">Bắt đầu trò chơi</button>
+          <button id="soundBtn" class="btn btn-secondary">🔊 Âm thanh: Bật</button>
+          <div class="volume-setting">
+            <label for="volumeInput">🔉 Âm lượng</label>
+            <div class="time-row">
+              <input id="volumeInput" type="range" min="0" max="100" step="5" value="90" />
+              <strong><span id="volumeValue">90</span>%</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="gameScreen">
+        <div class="topbar">
+          <div class="pill led-pill">Câu <span id="questionNumber">1</span>/15</div>
+          <div class="pill warning" id="timerPill">⏱ <span id="timer">20</span>s</div>
+          <div class="pill success">✅ Đúng: <span id="score">0</span></div>
+          <div class="pill combo hidden" id="comboPill">✨ Chuỗi may mắn x<span id="comboValue">2</span></div>
+        </div>
+
+        <div class="question-stage">
+          <div class="question-spotlight"></div>
+          <div class="question-card">
+            <div class="question-heading-row">
+              <div>
+                <div class="section-label" id="questionSection">Phần 1</div>
+                <h2 id="questionText"></h2>
+              </div>
+              <div class="mascot mascot-question" id="mascotBubble">🦉</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="answers-grid" id="answersGrid"></div>
+
+        <div class="knowledge-card hidden" id="explainBox">
+          <div class="knowledge-head">
+            <div class="knowledge-icon" id="knowledgeIcon">📘</div>
+            <div>
+              <div class="result-title" id="resultTitle"></div>
+              <div class="knowledge-subtitle">Giải thích ngắn + ví dụ dễ nhớ</div>
+            </div>
+          </div>
+          <p id="explainText"></p>
+        </div>
+
+        <div class="controls-row">
+          <button id="nextBtn" class="btn btn-primary hidden">Câu tiếp theo</button>
+        </div>
+      </section>
+
+      <section class="side-panel">
+        <div class="panel side-card led-card">
+          <h3>Kho quà còn lại</h3>
+          <div class="reward-stats">
+            <div class="reward-box jackpot-box">
+              <div class="reward-icon">💎</div>
+              <div>20k</div>
+              <strong id="count20k">4</strong>
+            </div>
+            <div class="reward-box">
+              <div class="reward-icon">✨</div>
+              <div>2k</div>
+              <strong id="count2k">3</strong>
+            </div>
+            <div class="reward-box">
+              <div class="reward-icon">🍬</div>
+              <div>1k</div>
+              <strong id="count1k">8</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel side-card led-card">
+          <h3>Lịch sử phần thưởng</h3>
+          <div id="rewardList" class="reward-list empty">Chưa có phần quà nào.</div>
+          <div class="total-reward">Tổng thưởng: <strong id="totalReward">0đ</strong></div>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="finishScreen">
+        <div class="finish-icon">🏆</div>
+        <h2>Hoàn thành mini game</h2>
+        <p>Bạn đã trả lời đúng <strong id="finalScore">0/15</strong> câu.</p>
+        <p>Tổng giá trị phần thưởng: <strong id="finalReward">0đ</strong></p>
+        <div id="finalRewardList" class="final-reward-list"></div>
+        <button id="restartBtn" class="btn btn-primary">Chơi lại</button>
+      </section>
+    </main>
+
+    <div id="wheelModal" class="wheel-modal hidden" aria-hidden="true">
+      <div class="wheel-backdrop"></div>
+      <div class="wheel-dialog panel">
+        <div class="led-title-box">
+          <div class="led-title">🎡 VÒNG QUAY MAY MẮN</div>
+        </div>
+        <p class="wheel-note">Trả lời đúng rồi! Nhấn quay để nhận phần thưởng.</p>
+        <div class="wheel-wrap">
+          <div class="wheel-pointer">▼</div>
+          <div class="wheel-disc" id="wheelDisc"></div>
+          <div class="wheel-ring-glow"></div>
+          <button class="btn btn-primary wheel-spin-btn" id="spinBtn">Quay ngay</button>
+        </div>
+        <div id="wheelResult" class="wheel-result hidden"></div>
+        <div id="jackpotBanner" class="jackpot-banner hidden">JACKPOT 20K</div>
+        <div class="wheel-actions">
+          <button class="btn btn-primary hidden" id="closeWheelBtn">Tiếp tục</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
