@@ -17,7 +17,7 @@ const QUESTIONS = [
 ];
 
 const LETTERS = ['A','B','C','D'];
-const REWARD_POOL_TEMPLATE = [20000,20000,20000,20000,2000,2000,2000,1000,1000,1000,1000,1000,1000,1000,1000];
+const REWARD_POOL_TEMPLATE = [5000,5000,5000,5000,2000,2000,2000,1000,1000,1000,1000,1000,1000,1000,1000];
 const WHEEL_THEMES = [
   ['#ffd84d','#ff9b24','#ff7ec7','#ff4da6','#7fe6ff','#45bfff'],
   ['#8cf7bb','#4cd88c','#78deff','#4f9dff','#ffd962','#ff9b54'],
@@ -169,7 +169,7 @@ function resetState(){
 }
 
 function updateRewardStats(){
-  el.count20k.textContent = state.rewardPool.filter(v=>v===20000).length;
+  el.count20k.textContent = state.rewardPool.filter(v=>v===5000).length;
   el.count2k.textContent = state.rewardPool.filter(v=>v===2000).length;
   el.count1k.textContent = state.rewardPool.filter(v=>v===1000).length;
   const total = state.collected.reduce((s,v)=>s+v,0);
@@ -229,7 +229,7 @@ function buildWheelOptions(){
   const gradient = state.wheelOptions.map((value,i)=>{
     const start = i * angle;
     const end = start + angle;
-    const color = value===20000 ? palette[(i+1)%palette.length] : value===2000 ? palette[(i+3)%palette.length] : palette[(i+5)%palette.length];
+    const color = value===5000 ? palette[(i+1)%palette.length] : value===2000 ? palette[(i+3)%palette.length] : palette[(i+5)%palette.length];
     return `${color} ${start}deg ${end}deg`;
   }).join(',');
   el.wheelDisc.style.background = `conic-gradient(from -90deg, ${gradient})`;
@@ -243,8 +243,8 @@ function buildWheelOptions(){
     const centerAngle = i * angle + angle / 2;
     const visualAngle = centerAngle - 90;
     label.style.transform = `translate(-50%, -50%) rotate(${visualAngle}deg) translate(${radius}px) rotate(${-visualAngle}deg)`;
-    label.textContent = value===20000 ? '20k' : value===2000 ? '2k' : '1k';
-    if(value===20000) label.style.color = '#5a2a00';
+    label.textContent = value===5000 ? '5k' : value===2000 ? '2k' : '1k';
+    if(value===5000) label.style.color = '#5a2a00';
     el.wheelDisc.appendChild(label);
   });
   for(let i=0;i<segments;i++){
@@ -293,10 +293,10 @@ function spinWheel(){
     if(idx >= 0) state.rewardPool.splice(idx,1);
     state.collected.push(actualPrize);
     updateRewardStats();
-    el.wheelResult.textContent = actualPrize===20000 ? `🎉 Bạn nhận được phần thưởng trị giá ${formatMoney(actualPrize)}!` : `🎉 Bạn nhận được ${formatMoney(actualPrize)}!`;
+    el.wheelResult.textContent = actualPrize===5000 ? `🎉 Bạn nhận được phần thưởng trị giá ${formatMoney(actualPrize)}!` : `🎉 Bạn nhận được ${formatMoney(actualPrize)}!`;
     el.wheelResult.classList.remove('hidden');
-    el.wheelResult.classList.toggle('super-win', actualPrize===20000);
-    if(actualPrize===20000){
+    el.wheelResult.classList.toggle('super-win', actualPrize===5000);
+    if(actualPrize===5000){
       flashScreen();
       const burst=document.createElement('div');
       burst.className='spot-burst';
@@ -307,7 +307,7 @@ function spinWheel(){
       playFx('crowd');
       el.jackpotBanner.classList.remove('hidden');
       document.querySelector('.wheel-dialog').classList.add('jackpot-mode');
-      el.jackpotBanner.textContent = 'PHẦN THƯỞNG TRỊ GIÁ 20K';
+      el.jackpotBanner.textContent = 'PHẦN THƯỞNG TRỊ GIÁ 5K';
       document.querySelector('.wheel-dialog').animate([{transform:'translateX(0)'},{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}],{duration:550,iterations:2});
     } else {
       emitConfetti(30,false);
