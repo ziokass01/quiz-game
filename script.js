@@ -54,6 +54,7 @@ const el = {
   count20k: document.getElementById('count20k'),
   count2k: document.getElementById('count2k'),
   count1k: document.getElementById('count1k'),
+  countWater: document.getElementById('countWater'),
   rewardList: document.getElementById('rewardList'),
   totalReward: document.getElementById('totalReward'),
   finalScore: document.getElementById('finalScore'),
@@ -173,6 +174,7 @@ function updateRewardStats(){
   el.count20k.textContent = state.rewardPool.filter(v=>v===5000).length;
   el.count2k.textContent = state.rewardPool.filter(v=>v===2000).length;
   el.count1k.textContent = state.rewardPool.filter(v=>v===1000).length;
+  el.countWater.textContent = state.rewardPool.filter(v=>v===0).length;
   const total = state.collected.reduce((s,v)=>s+v,0);
   el.totalReward.textContent = formatMoney(total);
   if(!state.collected.length){ el.rewardList.className='reward-list empty'; el.rewardList.textContent='Chưa có phần quà nào.'; }
