@@ -17,7 +17,7 @@ const QUESTIONS = [
 ];
 
 const LETTERS = ['A','B','C','D'];
-const REWARD_POOL_TEMPLATE = [5000,5000,5000,5000,2000,2000,2000,1000,1000,1000,1000,1000,1000,1000,1000];
+const REWARD_POOL_TEMPLATE = [5000,5000,5000,5000,2000,2000,2000,1000,1000,1000,1000,0,0,0,0];
 const WHEEL_THEMES = [
   ['#ffd84d','#ff9b24','#ff7ec7','#ff4da6','#7fe6ff','#45bfff'],
   ['#8cf7bb','#4cd88c','#78deff','#4f9dff','#ffd962','#ff9b54'],
@@ -54,6 +54,7 @@ const el = {
   count20k: document.getElementById('count20k'),
   count2k: document.getElementById('count2k'),
   count1k: document.getElementById('count1k'),
+  countWater: document.getElementById('countWater'),
   rewardList: document.getElementById('rewardList'),
   totalReward: document.getElementById('totalReward'),
   finalScore: document.getElementById('finalScore'),
@@ -94,6 +95,7 @@ const state = {
 
 function shuffle(arr){ return [...arr].sort(() => Math.random() - 0.5); }
 function formatMoney(v){ return `${v.toLocaleString('vi-VN')}đ`; }
+function formatReward(v){ return v===0 ? 'nước' : formatMoney(v); }
 function buildQuestionOrder(){ return shuffle([...QUESTIONS.keys()]); }
 function randomItem(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function normalizeDeg(v){ return ((v % 360) + 360) % 360; }
@@ -172,12 +174,13 @@ function updateRewardStats(){
   el.count20k.textContent = state.rewardPool.filter(v=>v===5000).length;
   el.count2k.textContent = state.rewardPool.filter(v=>v===2000).length;
   el.count1k.textContent = state.rewardPool.filter(v=>v===1000).length;
+  el.countWater.textContent = state.rewardPool.filter(v=>v===0).length;
   const total = state.collected.reduce((s,v)=>s+v,0);
   el.totalReward.textContent = formatMoney(total);
   if(!state.collected.length){ el.rewardList.className='reward-list empty'; el.rewardList.textContent='Chưa có phần quà nào.'; }
   else {
     el.rewardList.className='reward-list';
-    el.rewardList.innerHTML = state.collected.map((v,i)=>`<span class="reward-tag">Lượt ${i+1}: ${formatMoney(v)}</span>`).join('');
+    el.rewardList.innerHTML = state.collected.map((v,i)=>`<span class="reward-tag">Lượt ${i+1}: ${formatReward(v)}</span>`).join('');
   }
 }
 
@@ -243,7 +246,7 @@ function buildWheelOptions(){
     const centerAngle = i * angle + angle / 2;
     const visualAngle = centerAngle - 90;
     label.style.transform = `translate(-50%, -50%) rotate(${visualAngle}deg) translate(${radius}px) rotate(${-visualAngle}deg)`;
-    label.textContent = value===5000 ? '5k' : value===2000 ? '2k' : '1k';
+    label.textContent = value===5000 ? '5k' : value===2000 ? '2k' : value===0 ? 'nước' : '1k';
     if(value===5000) label.style.color = '#5a2a00';
     el.wheelDisc.appendChild(label);
   });
@@ -293,7 +296,11 @@ function spinWheel(){
     if(idx >= 0) state.rewardPool.splice(idx,1);
     state.collected.push(actualPrize);
     updateRewardStats();
-    el.wheelResult.textContent = actualPrize===5000 ? `🎉 Bạn nhận được phần thưởng trị giá ${formatMoney(actualPrize)}!` : `🎉 Bạn nhận được ${formatMoney(actualPrize)}!`;
+    el.wheelResult.textContent = actualPrize===5000
+      ? `🎉 Bạn nhận được phần thưởng trị giá ${formatMoney(actualPrize)}!`
+      : actualPrize===0
+        ? '🎉 Bạn nhận được nước!'
+        : `🎉 Bạn nhận được ${formatMoney(actualPrize)}!`;
     el.wheelResult.classList.remove('hidden');
     el.wheelResult.classList.toggle('super-win', actualPrize===5000);
     if(actualPrize===5000){
@@ -325,7 +332,7 @@ function finishGame(){
   const total = state.collected.reduce((s,v)=>s+v,0);
   el.finalScore.textContent = `${state.score}/15`;
   el.finalReward.textContent = formatMoney(total);
-  el.finalRewardList.innerHTML = state.collected.length ? state.collected.map((v,i)=>`<span class="final-tag">Quà ${i+1}: ${formatMoney(v)}</span>`).join('') : '<span class="final-tag">Chưa nhận được phần quà nào.</span>';
+  el.finalRewardList.innerHTML = state.collected.length ? state.collected.map((v,i)=>`<span class="final-tag">Quà ${i+1}: ${formatReward(v)}</span>`).join('') : '<span class="final-tag">Chưa nhận được phần quà nào.</span>';
 }
 
 function nextQuestion(){ state.index += 1; if(state.index >= QUESTIONS.length) finishGame(); else renderQuestion(); }
